@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.yfw.zlt.zltwx.MainFragmentManager">
+    <!-- 使用自定义的侧滑组件，orientation必须为水平方向 -->
+    <com.yfw.zlt.zltwx.view.SlidingLayout
+        android:id="@+id/slidingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+        <!-- 左侧菜单 -->
+        <RelativeLayout
+            android:id="@+id/menu"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="#00ccff"
+            android:gravity="center">
+            <ListView
+                android:id="@+id/menulist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/menus" />
+        </RelativeLayout>
+
+        <!-- 右侧主体 -->
+        <LinearLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:background="@color/colorPrimary"
+                >
+
+                <ImageView
+                    android:id="@+id/menuButton"
+                    android:layout_width="@dimen/searchwh"
+                    android:layout_height="@dimen/searchwh"
+                    android:layout_weight="0.8"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/left" />
+
+                <TextView
+                    android:id="@+id/mainTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:gravity="center"
+                    android:text="微信"
+                    android:textColor="#000"
+                    android:textSize="@dimen/bar" />
+                <TextView
+                    android:layout_width="@dimen/searchwh"
+                    android:layout_height="@dimen/searchwh"
+                    android:layout_weight="0.8"/>
+            </LinearLayout>
+            <FrameLayout
+                android:id="@+id/include"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+            <RadioGroup
+                android:id="@+id/main_tab_group"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="horizontal"
+                android:paddingTop="0.0dip" >
+
+                <RadioButton
+                    android:id="@+id/btnWxID"
+                    style="@style/MyTabButton"
+                    android:checked="true"
+                    android:text="微信" />
+
+                <RadioButton
+                    android:id="@+id/btnTxlID"
+                    style="@style/MyTabButton"
+                    android:text="通讯录" />
+
+                <RadioButton
+                    android:id="@+id/btnFxID"
+                    style="@style/MyTabButton"
+                    android:text="发现" />
+
+                <RadioButton
+                    android:id="@+id/btnMineID"
+                    style="@style/MyTabButton"
+                    android:text="我" />
+            </RadioGroup>
+        </LinearLayout>
+    </com.yfw.zlt.zltwx.view.SlidingLayout>
+
+</LinearLayout>
