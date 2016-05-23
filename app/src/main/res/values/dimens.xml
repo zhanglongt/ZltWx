@@ -6,4 +6,6 @@
     <dimen name="bar">20sp</dimen>
     <dimen name="textSize">15sp</dimen>
     <dimen name="searchwh">25dp</dimen>
+    <dimen name="wx">40sp</dimen>
+    <dimen name="ws">16sp</dimen>
 </resources>

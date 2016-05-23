@@ -4,8 +4,9 @@ package com.yfw.zlt.zltwx.common;
  * 常量类
  * Created by zlt on 2016/5/17.
  */
-public final class Contants {
+public final class Constant {
 
+    public static final String MESSAGE_ATTR_IS_VOICE_CALL = "is_voice_call";
 
     /**
      * 登录请求接口

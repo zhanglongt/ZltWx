@@ -18,7 +18,8 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="#00ccff"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
             <ListView
                 android:id="@+id/menulist"
                 android:layout_width="wrap_content"
@@ -70,7 +71,7 @@
             <RadioGroup
                 android:id="@+id/main_tab_group"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/wx"
                 android:layout_gravity="bottom"
                 android:orientation="horizontal"
                 android:paddingTop="0.0dip" >
@@ -79,22 +80,27 @@
                     android:id="@+id/btnWxID"
                     style="@style/MyTabButton"
                     android:checked="true"
-                    android:text="微信" />
+                    android:text="微信"
+                    android:gravity="center"
+                    />
 
                 <RadioButton
                     android:id="@+id/btnTxlID"
                     style="@style/MyTabButton"
-                    android:text="通讯录" />
+                    android:text="通讯录"
+                    android:gravity="center"/>
 
                 <RadioButton
                     android:id="@+id/btnFxID"
                     style="@style/MyTabButton"
-                    android:text="发现" />
+                    android:text="发现"
+                    android:gravity="center"/>
 
                 <RadioButton
                     android:id="@+id/btnMineID"
                     style="@style/MyTabButton"
-                    android:text="我" />
+                    android:text="我"
+                    android:gravity="center"/>
             </RadioGroup>
         </LinearLayout>
     </com.yfw.zlt.zltwx.view.SlidingLayout>

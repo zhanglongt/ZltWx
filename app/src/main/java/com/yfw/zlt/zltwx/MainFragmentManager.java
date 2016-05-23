@@ -1,9 +1,6 @@
 package com.yfw.zlt.zltwx;
-
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,6 +11,7 @@ import android.widget.TextView;
 
 import com.yfw.zlt.zltwx.http.BaseProtocol;
 import com.yfw.zlt.zltwx.http.MyHttpClient;
+import com.yfw.zlt.zltwx.ui.activity.base.BaseActivity;
 import com.yfw.zlt.zltwx.ui.fragment.FxFragment;
 import com.yfw.zlt.zltwx.ui.fragment.MineFragment;
 import com.yfw.zlt.zltwx.ui.fragment.TxlFragment;
@@ -22,12 +20,13 @@ import com.yfw.zlt.zltwx.view.SlidingLayout;
 
 import rx.functions.Action1;
 
-public class MainFragmentManager extends FragmentActivity implements View.OnClickListener{
+public class MainFragmentManager extends BaseActivity implements View.OnClickListener{
 
     ImageView menuButton;
     SlidingLayout slidingLayout;
     LinearLayout content;
     TextView mainTitle;
+    int height;//屏幕高度
     /**  定义微信、通讯录、发现、我 的fragment页面 */
     private FxFragment fxFragemnt;
     private MineFragment mineFragment;
@@ -47,6 +46,7 @@ public class MainFragmentManager extends FragmentActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_fragment_manager);
         fragmentManager=getSupportFragmentManager();
+        height=getWindowManager().getDefaultDisplay().getHeight();
         init();
 
 

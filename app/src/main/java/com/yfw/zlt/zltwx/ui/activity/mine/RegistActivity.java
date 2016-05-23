@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.yfw.zlt.zltwx.R;
-import com.yfw.zlt.zltwx.common.Contants;
+import com.yfw.zlt.zltwx.common.Constant;
 import com.yfw.zlt.zltwx.http.BaseProtocol;
 import com.yfw.zlt.zltwx.http.MyHttpClient;
 
@@ -65,7 +65,7 @@ public class RegistActivity extends AppCompatActivity implements View.OnClickLis
      * 注册
      */
     private void regist(){
-        String url= Contants.REGISTER_ACCESS;
+        String url= Constant.REGISTER_ACCESS;
         String usernick = et_usernick.getText().toString().trim();
         final String password = et_password.getText().toString().trim();
         String usertel = et_usertel.getText().toString().trim();
@@ -81,7 +81,7 @@ public class RegistActivity extends AppCompatActivity implements View.OnClickLis
                         Log.i("ii","o:"+o);
                         if(o.equals("right")){
                             handler.sendEmptyMessage(0);
-                            Intent mIntent = new Intent(Contants.LOGIN_SUCCESS_URL);
+                            Intent mIntent = new Intent(Constant.LOGIN_SUCCESS_URL);
                             sendBroadcast(mIntent);
                             finish();
                         }else if(o.equals("wrong")) {

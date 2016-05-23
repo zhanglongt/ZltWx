@@ -63,7 +63,7 @@ public class WelcomActivity extends Activity {
         super.onStart();
         new Handler().postDelayed(new Thread(){
            public void run(){
-               if(isLogin){
+               if(false){
                    long start = System.currentTimeMillis();
                    long costTime = System.currentTimeMillis() - start;
                    //等待sleeptime时长

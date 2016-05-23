@@ -17,8 +17,9 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.yfw.zlt.zltwx.MainFragmentManager;
 import com.yfw.zlt.zltwx.R;
-import com.yfw.zlt.zltwx.common.Contants;
+import com.yfw.zlt.zltwx.common.Constant;
 import com.yfw.zlt.zltwx.mode.RemoteDataHandler;
+import com.yfw.zlt.zltwx.utils.LogUtils;
 import com.yfw.zlt.zltwx.utils.OkHttpUtils;
 
 public class LoginActivity extends Activity implements View.OnClickListener{
@@ -77,7 +78,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
      * 登录
      */
    public void login(){
-        String url= Contants.LOGIN_ACCESS;
+        String url= Constant.LOGIN_ACCESS;
         String phone=et_usertel.getText().toString();
         String pwd=et_password.getText().toString();
         String url1=url+"&phone="+phone+"&password="+pwd;
@@ -105,10 +106,11 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
            @Override
            public void onSuccess(String response) {
-              // LogUtils.i("ii","111111111:"+response);
+               LogUtils.i("ii","111111111:"+response);
                RemoteDataHandler data = new Gson().fromJson(response, RemoteDataHandler.class);
               // Log.i("ii","data.getResult():"+data.getResult());
                if(data.getResult().equals("right")) {
+
                    Toast.makeText(LoginActivity.this, "登录成功,正为你跳转主页面.....", Toast.LENGTH_SHORT).show();
                    new Handler().postDelayed(new Thread(){
                        public void run(){
@@ -138,7 +140,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            if(action.equals(Contants.LOGIN_SUCCESS_URL)) {
+            if(action.equals(Constant.LOGIN_SUCCESS_URL)) {
                 intent = new Intent(LoginActivity.this, MainFragmentManager.class);
                 startActivity(intent);
                 finish();
@@ -148,7 +150,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     //注册广播
     public void registerBoradcastReceiver(){
         IntentFilter myIntentFilter = new IntentFilter();
-        myIntentFilter.addAction(Contants.LOGIN_SUCCESS_URL);
+        myIntentFilter.addAction(Constant.LOGIN_SUCCESS_URL);
         this.registerReceiver(mBro, myIntentFilter);  //注册广播
     }
 
