@@ -1,17 +1,24 @@
 package com.yfw.zlt.zltwx;
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.jakewharton.rxbinding.view.RxView;
+import com.yfw.zlt.zltwx.common.SaveDatas;
 import com.yfw.zlt.zltwx.http.BaseProtocol;
 import com.yfw.zlt.zltwx.http.MyHttpClient;
 import com.yfw.zlt.zltwx.ui.activity.base.BaseActivity;
+import com.yfw.zlt.zltwx.ui.activity.mine.LoginActivity;
 import com.yfw.zlt.zltwx.ui.fragment.FxFragment;
 import com.yfw.zlt.zltwx.ui.fragment.MineFragment;
 import com.yfw.zlt.zltwx.ui.fragment.TxlFragment;
@@ -21,7 +28,7 @@ import com.yfw.zlt.zltwx.view.SlidingLayout;
 import rx.functions.Action1;
 
 public class MainFragmentManager extends BaseActivity implements View.OnClickListener{
-
+    ListView menulist;
     ImageView menuButton;
     SlidingLayout slidingLayout;
     LinearLayout content;
@@ -53,6 +60,7 @@ public class MainFragmentManager extends BaseActivity implements View.OnClickLis
     }
     private void init(){
         mainTitle= (TextView) findViewById(R.id.mainTitle);
+        menulist= (ListView) findViewById(R.id.menulist);
         //点击
         menuButton=(ImageView) findViewById(R.id.menuButton);
         //侧滑
@@ -73,6 +81,30 @@ public class MainFragmentManager extends BaseActivity implements View.OnClickLis
         btnTxlID.setOnClickListener(this);
         btnFxID.setOnClickListener(this);
         btnMineID.setOnClickListener(this);
+
+        menulist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String da=  menulist.getItemAtPosition(position).toString();
+//                Log.i("ii","da:"+da);
+//                Toast.makeText(MainFragmentManager.this,da,Toast.LENGTH_SHORT).show();
+                if(da.equals("注销")){
+                    SaveDatas.getInstance(MainFragmentManager.this).delete();
+                    Intent intent = new Intent(MainFragmentManager.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else if(da.equals("图片")){
+                    Toast.makeText(MainFragmentManager.this,"图片",Toast.LENGTH_SHORT).show();
+                }else if(da.equals("收藏")){
+                    Toast.makeText(MainFragmentManager.this,"收藏",Toast.LENGTH_SHORT).show();
+                }
+                else if(da.equals("分享QQ")){
+                    Toast.makeText(MainFragmentManager.this,"分享QQ",Toast.LENGTH_SHORT).show();
+                }else if(da.equals("分享微信")){
+                    Toast.makeText(MainFragmentManager.this,"分享微信",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         //首次进入首页
         wxIn();
@@ -145,7 +177,6 @@ public class MainFragmentManager extends BaseActivity implements View.OnClickLis
         switch (v.getId()){
             // 点击侧滑菜单
             case R.id.menuButton:
-                Log.i("ii","iiiiiiiiiiiiiii");
                 if(slidingLayout.isLeftLayoutVisible()){
                     slidingLayout.scrollToRightLayout();
                 }else {

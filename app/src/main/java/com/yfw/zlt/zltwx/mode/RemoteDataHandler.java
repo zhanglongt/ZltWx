@@ -9,11 +9,13 @@ public class RemoteDataHandler {
     /**
      * phone : 123
      * keyid : 202cb962ac59075b964b07152d234b70
+     * name : dj
      * result : right
      */
 
     private String phone;
     private String keyid;
+    private String name;
     private String result;
 
     public String getPhone() {
@@ -32,6 +34,14 @@ public class RemoteDataHandler {
         this.keyid = keyid;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getResult() {
         return result;
     }
@@ -39,5 +49,4 @@ public class RemoteDataHandler {
     public void setResult(String result) {
         this.result = result;
     }
-
 }

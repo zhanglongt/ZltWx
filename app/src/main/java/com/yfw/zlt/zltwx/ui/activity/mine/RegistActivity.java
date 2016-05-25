@@ -11,10 +11,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.yfw.zlt.zltwx.R;
 import com.yfw.zlt.zltwx.common.Constant;
+import com.yfw.zlt.zltwx.common.SaveDatas;
 import com.yfw.zlt.zltwx.http.BaseProtocol;
 import com.yfw.zlt.zltwx.http.MyHttpClient;
+import com.yfw.zlt.zltwx.mode.RemoteDataHandler;
 
 import java.util.HashMap;
 
@@ -66,7 +69,7 @@ public class RegistActivity extends AppCompatActivity implements View.OnClickLis
      */
     private void regist(){
         String url= Constant.REGISTER_ACCESS;
-        String usernick = et_usernick.getText().toString().trim();
+        final String usernick = et_usernick.getText().toString().trim();
         final String password = et_password.getText().toString().trim();
         String usertel = et_usertel.getText().toString().trim();
         HashMap parmas=new HashMap();
@@ -78,8 +81,10 @@ public class RegistActivity extends AppCompatActivity implements View.OnClickLis
                 .subscribe(new Action1() {
                     @Override
                     public void call(Object o) {
+                        RemoteDataHandler data = new Gson().fromJson(o.toString(), RemoteDataHandler.class);
                         Log.i("ii","o:"+o);
-                        if(o.equals("right")){
+                        if(data.getResult().equals("right")){
+                            SaveDatas.getInstance(RegistActivity.this).setUserInfo("nick",usernick);
                             handler.sendEmptyMessage(0);
                             Intent mIntent = new Intent(Constant.LOGIN_SUCCESS_URL);
                             sendBroadcast(mIntent);

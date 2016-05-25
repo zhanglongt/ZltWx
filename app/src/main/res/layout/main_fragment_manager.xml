@@ -18,13 +18,13 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:background="#00ccff"
-            android:gravity="center"
-            android:visibility="gone">
+            android:gravity="center">
             <ListView
                 android:id="@+id/menulist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:entries="@array/menus" />
+                android:entries="@array/menus"
+                />
         </RelativeLayout>
 
         <!-- 右侧主体 -->

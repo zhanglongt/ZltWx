@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">ZltWx</string>
     <string-array name="menus">
-        <item>注册</item>
-        <item>登录</item>
+        <item>图片</item>
         <item>收藏</item>
         <item>分享QQ</item>
         <item>分享微信</item>
+        <item>注销</item>
     </string-array>
 
     <string-array name="titles">
