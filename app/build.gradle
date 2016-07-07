@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'android-apt'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
@@ -32,4 +32,16 @@ dependencies {
     compile files('libs/easemobchat_2.1.5.jar')
     compile 'org.xutils:xutils:3.3.34'
     compile 'com.jakewharton.rxbinding:rxbinding:0.4.0'
+    compile 'com.stephentuso:welcome:0.7.2'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.0.rc1'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.8.0.rc1'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.0.rc1'
+    apt "org.androidannotations:androidannotations:+"
+    compile "org.androidannotations:androidannotations-api:+"
+}
+apt {
+    arguments {
+        androidManifestFile variant.outputs[0]?.processResources?.manifestFile
+        resourcePackageName "com.yfw.zlt.zltwx"
+    }
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yfw.zlt.zltwx">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -20,7 +21,9 @@
         </activity>
         <activity android:name=".MainFragmentManager" />
         <activity android:name=".ui.activity.mine.RegistActivity" />
-        <activity android:name=".ui.activity.mine.LoginActivity"></activity>
+        <activity android:name=".ui.activity.mine.LoginActivity" />
+        <activity android:name=".MyWelcomActivity">
+        </activity>
     </application>
 
 </manifest>

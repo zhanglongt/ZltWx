@@ -15,17 +15,26 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.yfw.zlt.zltwx.MainFragmentManager;
 import com.yfw.zlt.zltwx.R;
 import com.yfw.zlt.zltwx.common.Constant;
 import com.yfw.zlt.zltwx.common.SaveDatas;
+import com.yfw.zlt.zltwx.http.BaseProtocol;
+import com.yfw.zlt.zltwx.http.MyHttpClient;
 import com.yfw.zlt.zltwx.mode.RemoteDataHandler;
 import com.yfw.zlt.zltwx.mode.Result;
 import com.yfw.zlt.zltwx.utils.CodeUtils;
 import com.yfw.zlt.zltwx.utils.LogUtils;
 import com.yfw.zlt.zltwx.utils.OkHttpUtils;
 
+import org.androidannotations.annotations.EActivity;
+
+import java.io.IOException;
+
+import rx.functions.Action1;
+//@EActivity(R.layout.activity_login)
 public class LoginActivity extends Activity implements View.OnClickListener{
     private Button goRegist;
     private Intent intent;
@@ -34,21 +43,21 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     private boolean isLogin=false;
     private  String name,code;
     private ImageView ivBitmap;
-//    Handler handler=new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            super.handleMessage(msg);
-//            switch (msg.what) {
-//                case 0:
-//                    Toast.makeText(LoginActivity.this, "输入有误，请重试", Toast.LENGTH_SHORT).show();
-//                    break;
-//                case 1:
-//                    Toast.makeText(LoginActivity.this, "网络连接失败或尚未注册", Toast.LENGTH_SHORT).show();
-//                    break;
-//            }
-//           // Toast.makeText(LoginActivity.this,"输入有误，请重试！",Toast.LENGTH_SHORT).show();
-//        }
-//    };
+    Handler handler=new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0:
+                    Toast.makeText(LoginActivity.this, "输入有误，请重试", Toast.LENGTH_SHORT).show();
+                    break;
+                case 1:
+                    Toast.makeText(LoginActivity.this, "网络连接失败或尚未注册", Toast.LENGTH_SHORT).show();
+                    break;
+            }
+           // Toast.makeText(LoginActivity.this,"输入有误，请重试！",Toast.LENGTH_SHORT).show();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,8 +148,14 @@ public class LoginActivity extends Activity implements View.OnClickListener{
            @Override
            public void onSuccess(String response) {
                //Log.i("ii","111111111:"+response);
-               RemoteDataHandler data = new Gson().fromJson(response, RemoteDataHandler.class);
-              // Log.i("ii","data.getResult():"+data.getResult());
+               //RemoteDataHandler data = new Gson().fromJson(response, RemoteDataHandler.class);
+               RemoteDataHandler data= null;
+               try {
+                   data = new ObjectMapper().readValue(response,RemoteDataHandler.class);
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
+               // Log.i("ii","data.getResult():"+data.getResult());
                if(data.getResult().equals("right")) {
                    name=data.getName();
                    SaveDatas.getInstance(LoginActivity.this).setUserInfo("nick",name);

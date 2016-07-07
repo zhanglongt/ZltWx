@@ -6,10 +6,10 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
-import android.view.animation.AlphaAnimation;
+import android.widget.Toast;
 
+import com.stephentuso.welcome.WelcomeScreenHelper;
+import com.stephentuso.welcome.ui.WelcomeActivity;
 import com.yfw.zlt.zltwx.ui.activity.mine.LoginActivity;
 
 import java.io.File;
@@ -17,17 +17,19 @@ import java.io.File;
 /**
  * 开屏页
  */
+
 public class WelcomActivity extends Activity {
     private static final int sleepTime = 2000;
     boolean isLogin=false;
+    WelcomeScreenHelper welcomeScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        View view = View.inflate(this, R.layout.activity_welcom, null);
-//        setContentView(view);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcom);
-       // setContentView(R.layout.activity_welcom);
+       setContentView(R.layout.activity_welcom);
+        welcomeScreen = new WelcomeScreenHelper(this, MyWelcomActivity.class);
+        welcomeScreen.show(savedInstanceState);
+        welcomeScreen.forceShow();
 
         //        new Timer().schedule(new TimerTask() {
 //            @Override
@@ -63,35 +65,35 @@ public class WelcomActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        new Handler().postDelayed(new Thread(){
-            public void run(){
-                if(isLogin){
-                    long start = System.currentTimeMillis();
-                    long costTime = System.currentTimeMillis() - start;
-                    //等待sleeptime时长
-                    if(sleepTime-costTime>0){
-                        try {
-                            Thread.sleep(sleepTime-costTime);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        Intent intent=new Intent(WelcomActivity.this,MainFragmentManager.class);
-                        startActivity(intent);
-                        WelcomActivity.this.finish();
-
-                    }
-                }else {
-                    try {
-                        Thread.sleep(sleepTime);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    Intent intent=new Intent(WelcomActivity.this,LoginActivity.class);
-                    startActivity(intent);
-                    WelcomActivity.this.finish();
-                }
-            }
-        },1000);
+//        new Handler().postDelayed(new Thread(){
+//            public void run(){
+//                if(isLogin){
+//                    long start = System.currentTimeMillis();
+//                    long costTime = System.currentTimeMillis() - start;
+//                    //等待sleeptime时长
+//                    if(sleepTime-costTime>0){
+//                        try {
+//                            Thread.sleep(sleepTime-costTime);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                        Intent intent=new Intent(WelcomActivity.this,MainFragmentManager.class);
+//                        startActivity(intent);
+//                        WelcomActivity.this.finish();
+//
+//                    }
+//                }else {
+//                    try {
+//                        Thread.sleep(sleepTime);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                    Intent intent=new Intent(WelcomActivity.this,LoginActivity.class);
+//                    startActivity(intent);
+//                    WelcomActivity.this.finish();
+//                }
+//            }
+//        },1000);
     }
     /**
      * 获取当前应用程序的版本号
@@ -115,6 +117,29 @@ public class WelcomActivity extends Activity {
             dir.mkdirs();
         }
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == WelcomeScreenHelper.DEFAULT_WELCOME_SCREEN_REQUEST) {
+            String welcomeKey = data.getStringExtra(WelcomeActivity.WELCOME_SCREEN_KEY);
+
+            if (resultCode == RESULT_OK) {
+                Intent intent=new Intent(WelcomActivity.this,LoginActivity.class);
+                startActivity(intent);
+                WelcomActivity.this.finish();
+                //Toast.makeText(getApplicationContext(), welcomeKey + " completed", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(getApplicationContext(), welcomeKey + " canceled", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        welcomeScreen.onSaveInstanceState(outState);
+    }
 }
 

@@ -38,8 +38,8 @@ public class MineFragment extends Fragment {
                     public void call(String s) {
                         Ds ds = new Gson().fromJson(s, Ds.class);
                        String Postid= ds.getT1348647909107().get(0).getPostid();
-                        Log.i("ii","ss:"+s);
-                        Log.i("ii","Postid:"+Postid);
+//                        Log.i("ii","ss:"+s);
+//                        Log.i("ii","Postid:"+Postid);
                     }
                 }, new Action1<Throwable>() {
                     @Override

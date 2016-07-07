@@ -25,8 +25,11 @@ import com.yfw.zlt.zltwx.ui.fragment.TxlFragment;
 import com.yfw.zlt.zltwx.ui.fragment.WxFragment;
 import com.yfw.zlt.zltwx.view.SlidingLayout;
 
+import org.androidannotations.annotations.EActivity;
+
 import rx.functions.Action1;
 
+//@EActivity(R.layout.main_fragment_manager)
 public class MainFragmentManager extends BaseActivity implements View.OnClickListener{
     ListView menulist;
     ImageView menuButton;

@@ -77,4 +77,10 @@ public class BaseActivity extends FragmentActivity {
     public void back(View view) {
         finish();
     }
+    /**
+     *是否登录
+     */
+    public void isLogin(){
+
+    }
 }

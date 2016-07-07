@@ -10,9 +10,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.yfw.zlt.zltwx.R;
 import com.yfw.zlt.zltwx.ui.adapter.ListViewAdapter;
@@ -81,6 +83,13 @@ public class TxlFragment extends Fragment {
             getIndexView();
             flag = true;
         }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Person bean = (Person) listView.getItemAtPosition(position);
+                Toast.makeText(getActivity(),bean.getName(),Toast.LENGTH_SHORT).show();
+            }
+        });
 
     }
 
@@ -163,9 +172,7 @@ public class TxlFragment extends Fragment {
             layoutIndex.setOnTouchListener(new View.OnTouchListener() {
 
                 @Override
-                public boolean onTouch(View v, MotionEvent event)
-
-                {
+                public boolean onTouch(View v, MotionEvent event) {
                     float y = event.getY();
                     int index = (int) (y / height);
                     if (index > -1 && index < indexStr.length) {// 防止越界

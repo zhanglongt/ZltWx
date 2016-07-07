@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.yfw.zlt.zltwx.R;
 import com.yfw.zlt.zltwx.common.Constant;
@@ -19,6 +20,7 @@ import com.yfw.zlt.zltwx.http.BaseProtocol;
 import com.yfw.zlt.zltwx.http.MyHttpClient;
 import com.yfw.zlt.zltwx.mode.RemoteDataHandler;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import rx.functions.Action1;
@@ -27,7 +29,10 @@ import rx.functions.Action1;
  * 注册页面
  */
 public class RegistActivity extends AppCompatActivity implements View.OnClickListener{
-    private EditText et_usernick,et_usertel,et_password;
+
+    private EditText et_usernick,
+            et_usertel,
+            et_password;
     private Button btn_regist;
     Handler handler=new Handler(){
         @Override
@@ -81,18 +86,23 @@ public class RegistActivity extends AppCompatActivity implements View.OnClickLis
                 .subscribe(new Action1() {
                     @Override
                     public void call(Object o) {
-                        RemoteDataHandler data = new Gson().fromJson(o.toString(), RemoteDataHandler.class);
-                        Log.i("ii","o:"+o);
-                        if(data.getResult().equals("right")){
-                            SaveDatas.getInstance(RegistActivity.this).setUserInfo("nick",usernick);
-                            handler.sendEmptyMessage(0);
-                            Intent mIntent = new Intent(Constant.LOGIN_SUCCESS_URL);
-                            sendBroadcast(mIntent);
-                            finish();
-                        }else if(o.equals("wrong")) {
-                            handler.sendEmptyMessage(2);
-                        }else {
-                            handler.sendEmptyMessage(3);
+                        //RemoteDataHandler data = new Gson().fromJson(o.toString(), RemoteDataHandler.class);
+                        try {
+                            RemoteDataHandler data=new ObjectMapper().readValue(o.toString(),RemoteDataHandler.class);
+                            Log.i("ii","data:"+data);
+                            if(data.getResult().equals("right")){
+                                SaveDatas.getInstance(RegistActivity.this).setUserInfo("nick",usernick);
+                                handler.sendEmptyMessage(0);
+                                Intent mIntent = new Intent(Constant.LOGIN_SUCCESS_URL);
+                                sendBroadcast(mIntent);
+                                finish();
+                            }else if(o.equals("wrong")) {
+                                handler.sendEmptyMessage(2);
+                            }else {
+                                handler.sendEmptyMessage(3);
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
                 }, new Action1<Throwable>() {
