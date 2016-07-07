@@ -11,11 +11,11 @@ public final class Constant {
     /**
      * 登录请求接口
      */
-    public static final String LOGIN_ACCESS="http://192.168.0.138/create.php?type=1";
+    public static final String LOGIN_ACCESS="http://192.168.0.147/create.php?type=1";
     /**
      * 注册请求接口
      */
-    public static final String REGISTER_ACCESS="http://192.168.0.138/create.php?type=2";
+    public static final String REGISTER_ACCESS="http://192.168.0.147/create.php?type=2";
     /**
      * 登录成功广播返回标识
      */

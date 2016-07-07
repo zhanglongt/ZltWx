@@ -155,7 +155,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                } catch (IOException e) {
                    e.printStackTrace();
                }
-               // Log.i("ii","data.getResult():"+data.getResult());
+                Log.i("ii","data.getResult():"+data.getResult());
                if(data.getResult().equals("right")) {
                    name=data.getName();
                    SaveDatas.getInstance(LoginActivity.this).setUserInfo("nick",name);
